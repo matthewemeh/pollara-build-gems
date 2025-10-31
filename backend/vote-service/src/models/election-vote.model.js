@@ -1,0 +1,67 @@
+const SHA256 = require('crypto-js/sha256');
+const encryption = require('mongoose-encryption');
+const { Schema, model, Types } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+
+const { SUB_DOC_OPTIONS } = require('../constants');
+
+const VoteData = new Schema(
+  {
+    party: { type: Types.ObjectId, ref: 'Party', required: true },
+    election: { type: Types.ObjectId, ref: 'Election', required: true },
+    contestants: [{ type: Types.ObjectId, ref: 'Contestant', required: true }],
+  },
+  SUB_DOC_OPTIONS
+);
+
+const ElectionVoteSchema = new Schema(
+  {
+    isInvalid: { type: Boolean },
+    isTailNode: { type: Boolean, required: true },
+    hash: { type: String, required: true, immutable: true },
+    data: { type: VoteData, required: true, immutable: true },
+    timestamp: { type: Number, required: true, immutable: true },
+    previousHash: { type: String, default: '', immutable: true },
+    index: { type: Number, required: true, min: 0, immutable: true },
+    election: { type: Types.ObjectId, ref: 'Election', required: true },
+  },
+  { minimize: false, collection: 'electionVotes' }
+);
+ElectionVoteSchema.plugin(mongoosePaginate);
+ElectionVoteSchema.plugin(encryption, {
+  secret: process.env.MONGO_DB_SECRET,
+  excludeFromEncryption: ['election', 'isTailNode'],
+});
+
+/**
+ * Checks if user's vote is still valid by checking if vote has been tampered with
+ * @param {object} previousVote - the vote just before this vote in a vote blockchain
+ * @returns {boolean}
+ */
+ElectionVoteSchema.methods.isValid = function (previousVote) {
+  const voteHash = SHA256(
+    this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)
+  ).toString();
+
+  if (!this.election.equals(this.data.election)) {
+    return false;
+  } else if (this.hash !== voteHash) {
+    return false;
+  } else if (previousVote && previousVote.hash !== this.previousHash) {
+    return false;
+  }
+  return true;
+};
+
+/* Before returning json response to client, remove sensitive fields */
+ElectionVoteSchema.methods.toJSON = function () {
+  const vote = this.toObject();
+  delete vote.data;
+  delete vote.election;
+  delete vote.isTailNode;
+  delete vote.previousHash;
+  return vote;
+};
+
+const ElectionVote = model('ElectionVote', ElectionVoteSchema);
+module.exports = ElectionVote;

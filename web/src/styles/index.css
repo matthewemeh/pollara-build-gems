@@ -1,0 +1,358 @@
+@import 'tailwindcss';
+
+:root {
+  @apply font-montserrat;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme {
+  --font-*: initial;
+  --font-montserrat: Monteserrat, system-ui, -apple-system, sans-serif;
+  --font-recoleta-alt: 'Recoleta Alt', Cambria, Cochin, Georgia, 'Times New Roman', serif;
+
+  --color-primary-50: #f2f8fd;
+  --color-primary-100: #e4f0fa;
+  --color-primary-200: #c2e0f5;
+  --color-primary-300: #8cc7ed;
+  --color-primary-400: #4faae1;
+  --color-primary-500: #2990ce;
+  --color-primary-600: #1a72af;
+  --color-primary-700: #165b8e;
+  --color-primary-800: #164d76;
+  --color-primary-900: #143752;
+  --color-primary-950: #102a41;
+  --color-primary-dark: #2c2c2c;
+
+  --color-grey: #e2e8f0;
+  --color-tuatara: #363535;
+  --color-deep-grey: #7a7a7a;
+  --color-medium-sea: #47b172;
+  --color-davys-grey: #525252;
+  --color-eerie-black: #191919;
+  --color-koriki-black: #001010;
+  --color-koriki-white: #f8f8f8;
+  --color-pantone-green: #47b24f;
+  --color-silver-chalice-1: #b1b1b1;
+  --color-silver-chalice-2: #aeaeae;
+
+  --color-haiti: #230b34;
+  --color-tuatara: #383838;
+  --color-alabaster: #f9fafc;
+  --color-gull-gray: #a3b1bf;
+  --color-port-gore: #1e1e4b;
+  --color-storm-dust: #656565;
+  --color-granite-gray: #686868;
+
+  --radius-half: 50%;
+
+  --breakpoint-phones: 600px;
+
+  --animate-slide-left: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+  @keyframes slide-left {
+    0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes rotate-right {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotate-left {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+}
+
+a,
+a *,
+button,
+button *,
+input[type='submit'],
+input[type='checkbox'] {
+  @apply cursor-pointer;
+}
+
+#more.MuiButtonBase-root {
+  @apply !rounded;
+}
+
+.loading-paper {
+  @apply h-[calc(100dvh-100px)] flex items-center justify-center border border-[rgba(0,0,0,0.15)];
+}
+
+.table-wrapper {
+  @apply h-[calc(100dvh-100px)] relative grid grid-rows-[1fr_60px] overflow-hidden max-phones:grid-rows-[1fr_90px] border border-[rgba(0,0,0,0.15)];
+}
+
+.add-fab {
+  @apply !fixed z-40 bottom-16 right-12 max-phones:bottom-6 max-phones:right-8 max-phones:!size-10;
+}
+
+.party {
+  @apply flex gap-4 items-center;
+}
+
+.party__img {
+  @apply rounded-full size-8;
+}
+
+.scan-face-icon {
+  @apply size-10 mx-auto mb-2 box-content p-2 border text-primary-500 self-center bg-white rounded-lg;
+}
+
+.privacy {
+  @apply min-h-screen bg-gray-50 text-gray-800 py-10 px-6;
+}
+
+/* ================ FORM STYLING ================= */
+
+.form-header {
+  @apply relative flex flex-col gap-3;
+}
+
+.form-heading {
+  @apply font-semibold text-4xl leading-[49px] text-primary-950 font-recoleta-alt;
+}
+
+.form-sub-heading {
+  @apply font-medium text-base leading-5 text-granite-gray;
+}
+
+.auth .form-field {
+  @apply h-20;
+}
+
+.right-aside {
+  @apply overflow-y-auto flex flex-col gap-8 pt-24 px-6 animate-slide-left sm:px-[20%] max-md:animate-none;
+}
+
+.form {
+  @apply flex flex-col gap-3 mb-10;
+}
+
+.dropdown {
+  @apply relative;
+}
+
+.dropdown .content {
+  @apply absolute bg-white border text-center flex flex-col gap-1 shadow-md w-fit min-w-full top-[calc(100%+5px)] rounded-b-md opacity-0 invisible duration-300;
+}
+
+.dropdown:focus-within .content {
+  @apply opacity-100 visible;
+}
+
+.nav-link {
+  @apply w-fit whitespace-nowrap py-0.5 px-2 rounded duration-300;
+}
+
+.nav-link.selected {
+  @apply font-medium bg-primary-600 text-white sm:font-semibold;
+}
+
+.form-layout {
+  @apply mx-auto flex flex-col gap-6 pt-8 pb-40 sm:max-w-2xl max-sm:px-4 max-sm:w-full phones:pb-32;
+}
+
+.empty-list {
+  @apply w-full h-[calc(100dvh-100px)] flex flex-col items-center justify-center gap-5;
+}
+
+/* ================ TABLE STYLING ================= */
+
+.avatar-image {
+  @apply duration-300 origin-left;
+}
+
+.avatar-image:hover {
+  @apply z-2 scale-350;
+}
+
+.unsorted,
+.sort-up,
+.sort-down {
+  @apply size-4 inline-block ml-1;
+}
+
+th[data-sort='2'] :is(.sort-up, .unsorted),
+th[data-sort='1'] :is(.sort-down, .unsorted),
+th[data-sort='0'] :is(.sort-up, .sort-down) {
+  @apply hidden;
+}
+
+.hover-pagination-controls {
+  @apply w-[90vw] fixed z-2 bottom-10 left-1/2 -translate-x-1/2 px-5 py-2 flex items-center justify-between max-phones:flex-col phones:w-150;
+}
+
+/* ================ DETAILS CARD STYLING ================= */
+
+.card-info-section {
+  @apply col-start-1 col-end-3 font-bold mt-4;
+}
+
+.card-info__text.last {
+  @apply mb-4;
+}
+
+.card-info__text.last + .card-info-section,
+.card-info__text.last:last-child {
+  @apply mt-0;
+}
+
+/* ================ From Uiverse.io by Creatlydev ================= */
+/* ================ THEME TOGGLE BUTTON STYLING ================= */
+
+.toggle {
+  @apply bg-white size-8 rounded-half grid place-items-center cursor-pointer border border-primary-700 leading-none;
+}
+
+.toggle * {
+  @apply cursor-pointer;
+}
+
+.input {
+  @apply hidden;
+}
+
+.icon {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+  @apply transition-transform duration-500;
+}
+
+.icon path {
+  @apply !fill-primary-700;
+}
+
+.icon-moon {
+  @apply delay-200;
+}
+
+.icon-sun {
+  @apply scale-0;
+}
+
+#switch:checked + .icon-moon {
+  @apply rotate-360 scale-0;
+}
+
+#switch:checked ~ .icon-sun {
+  @apply delay-200 scale-100 rotate-360;
+}
+
+/* ================ DARK-MODE STYLING ================= */
+body[data-theme='dark'],
+body[data-theme='dark'] :is(nav, .MuiBox-root, .MuiTableCell-root, .MuiList-root, .MuiPaper-root) {
+  @apply bg-primary-dark text-white;
+}
+
+body[data-theme='dark'] .nav-links {
+  @apply bg-primary-dark;
+}
+
+body[data-theme='dark']
+  :is(
+    input,
+    .form-heading,
+    .MuiChip-label,
+    .MuiSelect-select,
+    .MuiFormLabel-root,
+    .MuiSvgIcon-root path,
+    .MuiOutlinedInput-root,
+    .MuiTablePagination-selectLabel,
+    .MuiTablePagination-displayedRows,
+
+  ) {
+  @apply text-white;
+}
+
+body[data-theme='dark'] .MuiSelect-select.Mui-disabled {
+  -webkit-text-fill-color: unset;
+}
+
+body[data-theme='dark'] :is(.MuiSvgIcon-root, .MuiIconButton-root).Mui-disabled path {
+  @apply text-[rgba(255,255,255,0.3)];
+}
+
+body[data-theme='dark'] :is(.form-sub-heading, .MuiDialogContentText-root) {
+  @apply text-[rgba(255,255,255,0.65)];
+}
+
+body[data-theme='dark'] .MuiPaper-root {
+  @apply bg-primary-dark;
+}
+
+body[data-theme='dark'] :is(.MuiFormLabel-root, .MuiSelect-select).Mui-disabled {
+  @apply text-[rgba(255,255,255,0.4)];
+}
+
+body[data-theme='dark'] .MuiFormLabel-root.Mui-focused {
+  @apply text-primary-600;
+}
+
+body[data-theme='dark'] .MuiFormLabel-root.Mui-error {
+  @apply text-[#d32f2f];
+}
+
+body[data-theme='dark'] .MuiOutlinedInput-notchedOutline,
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  @apply border-white;
+}
+
+body[data-theme='dark']
+  .MuiOutlinedInput-root:not(.Mui-disabled, .Mui-focused):hover
+  .MuiOutlinedInput-notchedOutline {
+  @apply !border-white;
+}
+
+body[data-theme='dark'] .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+  @apply border-[rgba(255,255,255,0.3)];
+}
+
+body[data-theme='dark'] .banner {
+  @apply from-primary-700 to-primary-900;
+}
+
+body[data-theme='dark'] .step-tracker {
+  @apply bg-[#111213a0];
+}
+
+body[data-theme='dark'] .MuiLoadingButton-root.Mui-disabled {
+  @apply bg-primary-700 opacity-20;
+}
+
+body[data-theme='dark'] .MuiLoadingButton-root.Mui-disabled .MuiLoadingButton-loadingIndicator {
+  @apply text-white;
+}
+
+body[data-theme='dark'] .otp-input {
+  @apply bg-transparent;
+}
+
+body[data-theme='dark'] .MuiSkeleton-root {
+  @apply bg-[rgba(0,0,0,0.45)];
+}
+
+body[data-theme='dark'] .privacy {
+  @apply bg-transparent text-white;
+}
