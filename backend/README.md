@@ -1,12 +1,12 @@
-# Pollara (Backend)
+# Pollara
 
-#### By [Matthew Emeh](https://github.com/matthewemeh) @29th of September, 2025
+#### By [Matthew Emeh](https://github.com/matthewemeh) @1st of November, 2025
 
 <br>
 
 ## Overview
 
-Pollara is a distributed, microservices-based voting platform designed for secure, scalable, and transparent elections. The system is composed of several independent services, each responsible for a specific domain, all coordinated through a central API Gateway. Pollara supports authentication, voting, results collation, notifications, and more, with robust logging, rate limiting, and validation throughout. It is deployed at:
+Pollara is a distributed, microservices-based voting platform designed for secure, scalable, and transparent elections. The system is composed of several independent services, each responsible for a specific domain, all coordinated through a central API Gateway. Pollara supports authentication, voting, results collation, notifications, and more, with robust logging, rate limiting, and validation throughout.
 
 ## Table of Contents
 
@@ -73,9 +73,9 @@ Pollara is a distributed, microservices-based voting platform designed for secur
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/matthewemeh/pollara.git
+   git clone https://github.com/matthewemeh/pollara-build-gems
    # or
-   git clone git@github.com:matthewemeh/pollara.git
+   git clone git@github.com:matthewemeh/pollara-build-gems.git
    ```
 2. Install dependencies for each service (example for API Gateway):
    ```bash
