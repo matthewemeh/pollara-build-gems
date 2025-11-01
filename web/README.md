@@ -1,18 +1,12 @@
-# Pollara (Frontend)
+# Pollara
 
-#### By [Matthew Emeh](https://github.com/matthewemeh) @29th of September, 2025
-
-<br>
-
-## Certification
-
-This is to certify that this project was carried out by [EMEH MATTHEW CHUKWUEMEKA](https://github.com/matthewemeh) with the matriculation number 180408011 in the department of Electrical and Electronics Engineering, Faculty of Engineering, University of Lagos under the supervision of Dr. (Mrs.) Khadeejah Adebisi Abdulsalam.
+#### By [Matthew Emeh](https://github.com/matthewemeh) @1st of November, 2025
 
 <br>
 
 ## Overview
 
-A modern web application built with **React**, **TypeScript**, and **Vite**. This project provides a robust foundation for scalable, maintainable, and high-performance frontend development, featuring hot module replacement, strict linting, and a modular architecture. It is deployed at: [https://electranet.vercel.app](https://electranet.vercel.app)
+A modern web application built with **React**, **TypeScript**, and **Vite**. This project provides a robust foundation for scalable, maintainable, and high-performance frontend development, featuring hot module replacement, strict linting, and a modular architecture. It is deployed at: [https://pollara-tkcx.vercel.app](https://pollara-tkcx.vercel.app)
 
 ---
 
@@ -48,12 +42,14 @@ frontend/
 │   ├── assets/            # Images, icons, and branding
 │   ├── components/        # Reusable UI components
 │   ├── config/            # Configuration files
+│   ├── contexts/          # Application context(s)
 │   ├── helpers/           # Helper utilities
 │   ├── hooks/             # Custom React hooks
 │   ├── interfaces/        # TypeScript type definitions
 │   ├── layouts/           # Layout components
 │   ├── pages/             # Page components (by route)
 │   ├── routes/            # Route definitions
+│   ├── schemas/           # Yup Schema definitions for some forms in the application
 │   ├── services/          # API and store logic
 │   ├── styles/            # CSS and style files
 │   ├── types/             # Shared types
@@ -78,9 +74,9 @@ frontend/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/matthewemeh/electranet_.git
+   git clone https://github.com/matthewemeh/pollara-build-gems
    # or
-   git clone git@github.com:matthewemeh/electranet_.git
+   git clone git@github.com:matthewemeh/pollara-build-gems.git
    ```
 2. **Install dependencies:**
    ```bash
