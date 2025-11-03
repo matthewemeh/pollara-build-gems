@@ -30,9 +30,10 @@ const loginAction: CaseReducer<AuthStore, PayloadAction<LoginResponse>> = (state
   return { ...state, currentUser: user, isAuthenticated: true };
 };
 
-const logoutAction = () => {
+const logoutAction: CaseReducer<AuthStore> = state => {
+  const { prefersDarkMode } = state;
   AppStorage.remove(STORAGE_KEYS.AUTH);
-  return initialState;
+  return { ...initialState, prefersDarkMode };
 };
 
 export const authStoreSlice = createSlice({

@@ -2,8 +2,8 @@ import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../hooks';
-import { Banner, Loading } from '../components';
 import { PATHS } from '../routes/PathConstants';
+import { Banner, Loading, ThemeToggle } from '../components';
 import { Stage as UserStage } from '../pages/auth/register/RegisterUser';
 import { Stage as AdminStage } from '../pages/auth/register/RegisterAdmin';
 
@@ -36,6 +36,7 @@ const AuthLayout = () => {
       <Suspense fallback={<Loading />}>
         <Outlet />
       </Suspense>
+      <ThemeToggle extraClassNames='fixed bottom-5 right-6 phones:right-10' />
     </main>
   );
 };

@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import type { RouteObject } from 'react-router-dom';
 
 import { PATHS } from './PathConstants';
+const Home = lazy(() => import('../pages/Home'));
 const Forms = lazy(() => import('../pages/forms'));
 const ElectionVotes = lazy(() => import('../pages/votes'));
 const FormAdd = lazy(() => import('../pages/forms/FormAdd'));
@@ -20,9 +21,10 @@ const FormPopulate = lazy(() => import('../pages/forms/FormPopulate'));
 const VerifyFormVote = lazy(() => import('../pages/votes/VerifyFormVote'));
 const ElectionResult = lazy(() => import('../pages/results/ElectionResult'));
 
-const { FACE_ID_REGISTER, FORMS, NOTIFICATIONS, VOTES, RESULTS, PRIVACY_POLICY } = PATHS;
+const { HOME, FACE_ID_REGISTER, FORMS, NOTIFICATIONS, VOTES, RESULTS, PRIVACY_POLICY } = PATHS;
 
 const commonRoutes: RouteObject[] = [
+  { path: HOME, element: <Home />, index: true },
   { path: FORMS.FETCH, element: <Forms /> },
   { path: FORMS.ADD, element: <FormAdd /> },
   { path: FORMS.FILL, element: <FormFill /> },

@@ -1,4 +1,6 @@
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+import { PATHS } from '../routes/PathConstants';
 
 const Banner = () => {
   const { pathname } = useLocation();
@@ -9,7 +11,7 @@ const Banner = () => {
         !pathname.includes('register') && 'md:flex'
       }`}
     >
-      <div className='mb-4 w-fit flex flex-col gap-2 items-center'>
+      <Link to={PATHS.HOME} className='mb-4 w-fit flex flex-col gap-2 items-center'>
         <img
           loading='eager'
           alt='Pollara logo'
@@ -17,7 +19,7 @@ const Banner = () => {
           src='/web-app-manifest-512x512.png'
         />
         <span className='text-2xl font-bold text-white'>Pollara</span>
-      </div>
+      </Link>
     </aside>
   );
 };

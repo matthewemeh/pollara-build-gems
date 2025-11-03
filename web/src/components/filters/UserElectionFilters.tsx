@@ -2,9 +2,7 @@ import { omitBy } from 'lodash';
 import { useCallback } from 'react';
 import { Form, Formik } from 'formik';
 
-import AlertDialog from '../AlertDialog';
-import FilterActions from './FilterActions';
-import FormDatePicker from '../inputs/FormDatePicker';
+import { AlertDialog, FilterActions, FormDatePicker } from '../index';
 
 interface Props {
   open: boolean;
@@ -19,14 +17,14 @@ const UserElectionFilters: React.FC<Props> = ({ setFilters, open, setOpen }) => 
       setFilters({});
       setOpen(false);
     },
-    [setFilters]
+    [setFilters, setOpen]
   );
 
   return (
     <Formik
       initialValues={{ endTime: '', startTime: '' }}
       onSubmit={(values, { setSubmitting }) => {
-        const newFilters = omitBy(values, value => value === '');
+        const newFilters = omitBy(values, value => !value);
         setOpen(false);
         setFilters({ ...newFilters });
         setSubmitting(false);

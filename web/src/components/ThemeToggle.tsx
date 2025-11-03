@@ -1,7 +1,11 @@
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { updateAuthStore } from '../services/apis/authApi/store';
 
-const ThemeToggle = () => {
+interface Props {
+  extraClassNames?: string;
+}
+
+const ThemeToggle: React.FC<Props> = ({ extraClassNames }) => {
   const dispatch = useAppDispatch();
   const { prefersDarkMode } = useAppSelector(state => state.authStore);
 
@@ -10,7 +14,7 @@ const ThemeToggle = () => {
   };
 
   return (
-    <div className='ml-auto'>
+    <div className={`ml-auto ${extraClassNames}`}>
       <label className='toggle' htmlFor='switch'>
         <input
           id='switch'

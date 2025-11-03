@@ -12,7 +12,7 @@ const { DASHBOARD, ELECTIONS, VOTES } = PATHS;
 
 const userRoutes: RouteObject[] = [
   ...commonRoutes,
-  { path: DASHBOARD, element: <Dashboard />, index: true },
+  { path: DASHBOARD, element: <Dashboard /> },
   { path: ELECTIONS.ELECTION, element: <Election /> },
   { path: ELECTIONS.FETCH, element: <UserElections /> },
   { path: VOTES.ELECTION.VERIFY, element: <VerifyElectionVote /> },

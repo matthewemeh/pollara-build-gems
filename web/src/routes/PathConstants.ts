@@ -7,10 +7,11 @@ export const PATHS = {
     FORGOT_PASSWORD: '/auth/forgot-password',
     VERIFY_OTP_PASSWORD: '/auth/forgot-password/verify-otp',
   },
-  DASHBOARD: '/',
+  HOME: '/',
   LOGS: '/logs',
   USERS: '/users',
   TOKENS: '/tokens',
+  DASHBOARD: '/dashboard',
   PRIVACY_POLICY: '/privacy',
   CONTESTANTS: {
     FETCH: '/contestants',

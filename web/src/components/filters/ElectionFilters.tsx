@@ -3,9 +3,7 @@ import { useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { TextField } from '@mui/material';
 
-import AlertDialog from '../AlertDialog';
-import FilterActions from './FilterActions';
-import FormDatePicker from '../inputs/FormDatePicker';
+import { AlertDialog, FilterActions, FormDatePicker } from '../index';
 
 interface Props {
   open: boolean;
@@ -20,7 +18,7 @@ const ElectionFilters: React.FC<Props> = ({ setFilters, open, setOpen }) => {
       setFilters({});
       setOpen(false);
     },
-    [setFilters]
+    [setFilters, setOpen]
   );
 
   return (
@@ -35,7 +33,7 @@ const ElectionFilters: React.FC<Props> = ({ setFilters, open, setOpen }) => {
           values,
           (value, key) => value === '' && key !== 'delimitationCode'
         );
-        setOpen;
+        setOpen(false);
         setFilters({ ...newFilters });
         setSubmitting(false);
       }}

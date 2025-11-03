@@ -2,9 +2,7 @@ import { omitBy } from 'lodash';
 import { Form, Formik } from 'formik';
 import { useCallback, useMemo } from 'react';
 
-import AlertDialog from '../AlertDialog';
-import FilterActions from './FilterActions';
-import FormDatePicker from '../inputs/FormDatePicker';
+import { AlertDialog, FilterActions, FormDatePicker } from '../index';
 
 interface Props {
   open: boolean;
@@ -21,7 +19,7 @@ const NotificationFilters: React.FC<Props> = ({ setFilters, open, setOpen }) => 
       setFilters({});
       setOpen(false);
     },
-    [setFilters]
+    [setFilters, setOpen]
   );
 
   return (

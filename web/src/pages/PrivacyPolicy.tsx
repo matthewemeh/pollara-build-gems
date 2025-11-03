@@ -1,15 +1,21 @@
 import { Link } from 'react-router-dom';
+
+import { useAppSelector } from '../hooks';
 import { PATHS } from '../routes/PathConstants';
 
+const { DASHBOARD, HOME } = PATHS;
+
 const PrivacyPolicy = () => {
+  const { isAuthenticated } = useAppSelector(state => state.authStore);
+
   return (
     <div className='privacy'>
       <div className='max-w-3xl mx-auto'>
         <h1 className='text-3xl font-bold mb-6 text-center'>Privacy Policy</h1>
 
         <p>
-          Thomaz Frank built the <strong>POLLARA</strong> app as a Free app. This SERVICE is
-          provided by Thomaz Frank at no cost and is intended for use as is.
+          Matthew built the <strong>POLLARA</strong> app as a Free app. This SERVICE is provided by
+          Matthew at no cost and is intended for use as is.
         </p>
 
         <p className='mt-4'>
@@ -110,14 +116,14 @@ const PrivacyPolicy = () => {
         <p>
           If you have any questions or suggestions about my Privacy Policy, you can contact me
           at&nbsp;
-          <Link to='mailto:thomazfrank69@gmail.com' className='text-primary-600 underline'>
-            thomazfrank69@gmail.com
+          <Link to='mailto:electranet10@gmail.com' className='text-primary-600 underline'>
+            electranet10@gmail.com
           </Link>
           .
         </p>
 
         <div className='text-center mt-10'>
-          <Link to={PATHS.DASHBOARD} className='text-primary-600 underline'>
+          <Link to={isAuthenticated ? DASHBOARD : HOME} className='text-primary-600 underline'>
             ← Back to Home
           </Link>
         </div>

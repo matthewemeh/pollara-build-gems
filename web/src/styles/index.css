@@ -143,7 +143,7 @@ input[type='checkbox'] {
 }
 
 .right-aside {
-  @apply overflow-y-auto flex flex-col gap-8 pt-24 px-6 animate-slide-left sm:px-[20%] max-md:animate-none;
+  @apply overflow-y-auto flex flex-col gap-8 pt-24 px-6 animate-slide-left sm:px-[20%] max-md:animate-none max-phones:pb-10;
 }
 
 .form {
@@ -219,6 +219,32 @@ th[data-sort='0'] :is(.sort-up, .sort-down) {
   @apply mt-0;
 }
 
+/* ================ LANDING PAGE STYLING ================= */
+
+.info-container {
+  @apply flex flex-col gap-4 max-lg:text-center;
+}
+
+.info-container .heading {
+  @apply text-port-gore font-recoleta-alt font-semibold text-3xl leading-9 lg:text-4xl lg:leading-[49px];
+}
+
+.info-container.main .heading {
+  @apply text-haiti;
+}
+
+.info-container .sub-heading {
+  @apply text-storm-dust font-normal text-lg leading-6 lg:text-xl lg:leading-7;
+}
+
+.info-container.main .sub-heading {
+  @apply text-tuatara;
+}
+
+.hero-icon {
+  @apply absolute text-white size-16;
+}
+
 /* ================ From Uiverse.io by Creatlydev ================= */
 /* ================ THEME TOGGLE BUTTON STYLING ================= */
 
@@ -266,6 +292,14 @@ body[data-theme='dark'] :is(nav, .MuiBox-root, .MuiTableCell-root, .MuiList-root
   @apply bg-primary-dark text-white;
 }
 
+body[data-theme='dark'] .info-container .sub-heading {
+  @apply text-[rgba(255,255,255,0.5)];
+}
+
+body[data-theme='dark'] :is(.register-text) {
+  @apply !text-[rgba(255,255,255,0.65)];
+}
+
 body[data-theme='dark'] .nav-links {
   @apply bg-primary-dark;
 }
@@ -277,8 +311,10 @@ body[data-theme='dark']
     .MuiChip-label,
     .MuiSelect-select,
     .MuiFormLabel-root,
+    .register-text > em,
     .MuiSvgIcon-root path,
     .MuiOutlinedInput-root,
+    .info-container .heading,
     .MuiTablePagination-selectLabel,
     .MuiTablePagination-displayedRows,
 

@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Chip, IconButton, Tooltip, useMediaQuery } from '@mui/material';
 import { MenuRounded, MenuOpenRounded, MoreVert, Notifications } from '@mui/icons-material';
 
-import logo from '../assets/brand/logo.png';
 import { PATHS } from '../routes/PathConstants';
 import { useLogoutMutation } from '../services/apis/authApi';
 import { Overlay, ThemeToggle, LinkButton, LinkIconButton } from './index';
@@ -27,6 +26,7 @@ interface NavLink {
   restrictedRoles?: RoleWeight | RoleWeight[];
 }
 const {
+  HOME,
   LOGS,
   USERS,
   VOTES,
@@ -183,8 +183,8 @@ const Navbar = () => {
         {menuOpened ? <MenuOpenRounded /> : <MenuRounded />}
       </IconButton>
 
-      <Link to={DASHBOARD} className='hidden items-center gap-2 sm:flex'>
-        <img src={logo} alt='Pollara Logo' className='w-8 rounded' />
+      <Link to={HOME} className='hidden items-center gap-2 sm:flex'>
+        <img src='/web-app-manifest-512x512.png' alt='Pollara Logo' className='w-8 rounded' />
       </Link>
 
       <div
@@ -192,12 +192,8 @@ const Navbar = () => {
           menuOpened ? 'right-0' : 'right-full'
         }`}
       >
-        <Link
-          to={DASHBOARD}
-          onClick={toggleNav}
-          className='flex items-center gap-2 w-fit sm:hidden'
-        >
-          <img src={logo} alt='Pollara Logo' className='size-10' />
+        <Link to={HOME} onClick={toggleNav} className='flex items-center gap-2 w-fit sm:hidden'>
+          <img src='/web-app-manifest-512x512.png' alt='Pollara Logo' className='size-10' />
           <span className='font-medium'>Pollara</span>
         </Link>
         {filteredNavLinks.slice(0, maxNavLinks).map(({ text, url, urlRegex }) => (

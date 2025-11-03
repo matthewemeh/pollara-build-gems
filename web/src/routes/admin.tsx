@@ -20,7 +20,7 @@ const { CONTESTANTS, DASHBOARD, ELECTIONS, LOGS, PARTIES } = PATHS;
 
 const adminRoutes: RouteObject[] = [
   ...commonRoutes,
-  { path: DASHBOARD, element: <Dashboard />, index: true },
+  { path: DASHBOARD, element: <Dashboard /> },
   { path: LOGS, element: <Logs /> },
   { path: PARTIES.ADD, element: <PartyAdd /> },
   { path: PARTIES.FETCH, element: <Parties /> },

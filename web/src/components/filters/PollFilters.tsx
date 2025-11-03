@@ -17,7 +17,7 @@ const PollFilters: React.FC<Props> = ({ open, setOpen, setFilters }) => {
       setFilters({});
       setOpen(false);
     },
-    [setFilters]
+    [setFilters, setOpen]
   );
 
   return (

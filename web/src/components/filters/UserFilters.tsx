@@ -4,9 +4,7 @@ import { Form, Formik } from 'formik';
 import { TextField } from '@mui/material';
 
 import constants from '../../constants';
-import AlertDialog from '../AlertDialog';
-import FilterActions from './FilterActions';
-import DropdownInput from '../inputs/DropdownInput';
+import { AlertDialog, FilterActions, DropdownInput } from '../index';
 
 interface Props {
   open: boolean;
@@ -23,7 +21,7 @@ const UserFilters: React.FC<Props> = ({ setFilters, open, setOpen }) => {
       setFilters({});
       setOpen(false);
     },
-    [setFilters]
+    [setFilters, setOpen]
   );
 
   return (
@@ -35,7 +33,7 @@ const UserFilters: React.FC<Props> = ({ setFilters, open, setOpen }) => {
         firstName: '',
       }}
       onSubmit={(values, { setSubmitting }) => {
-        const newFilters = omitBy(values, value => value === '');
+        const newFilters = omitBy(values, value => !value);
         setOpen(false);
         setFilters({ ...newFilters });
         setSubmitting(false);

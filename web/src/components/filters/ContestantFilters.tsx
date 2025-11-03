@@ -3,13 +3,10 @@ import { useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { TextField } from '@mui/material';
 
-import Switch from '../inputs/Switch';
 import constants from '../../constants';
-import AlertDialog from '../AlertDialog';
-import FilterActions from './FilterActions';
-import DropdownInput from '../inputs/DropdownInput';
 import { useHandleReduxQueryError } from '../../hooks';
 import { useGetPartiesQuery } from '../../services/apis/partyApi';
+import { Switch, AlertDialog, FilterActions, DropdownInput } from '../index';
 
 interface Props {
   open: boolean;
@@ -33,7 +30,7 @@ const ContestantFilters: React.FC<Props> = ({ open, setOpen, setFilters }) => {
       setFilters({});
       setOpen(false);
     },
-    [setFilters]
+    [setFilters, setOpen]
   );
 
   useHandleReduxQueryError({
@@ -52,7 +49,7 @@ const ContestantFilters: React.FC<Props> = ({ open, setOpen, setFilters }) => {
         isDeleted: undefined,
       }}
       onSubmit={(values, { setSubmitting }) => {
-        const newFilters = omitBy(values, value => value === '');
+        const newFilters = omitBy(values, value => value === '' || value === undefined);
         setOpen(false);
         setFilters({ ...newFilters });
         setSubmitting(false);
