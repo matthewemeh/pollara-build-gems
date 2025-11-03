@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 
+import { useAppSelector } from '../hooks';
 import { PATHS } from '../routes/PathConstants';
 
+const { DASHBOARD, HOME } = PATHS;
+
 const Page404 = () => {
+  const { isAuthenticated } = useAppSelector(state => state.authStore);
+
   return (
     <main className='w-screen h-screen flex flex-col gap-2 items-center justify-center'>
       <div className='shadow-xl border border-[rgba(0,0,0,0.25)] mb-4'>
@@ -13,7 +18,7 @@ const Page404 = () => {
 
       <p className='text-xl'>
         Return to&nbsp;
-        <Link to={PATHS.DASHBOARD} className='underline'>
+        <Link to={isAuthenticated ? DASHBOARD : HOME} className='underline'>
           Home page
         </Link>
       </p>
