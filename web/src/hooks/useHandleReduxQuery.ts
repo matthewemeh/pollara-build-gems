@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import constants from '../constants';
 import { showAlert } from '../utils';
 import { PATHS } from '../routes/PathConstants';
 import { useAppDispatch } from './useRootStorage';
@@ -11,6 +10,26 @@ import { error as errorLog } from '../utils/log.utils';
 import { logout } from '../services/apis/authApi/store';
 import { AppStorage, STORAGE_KEYS } from '../utils/storage.utils';
 import { useLazyRefreshTokensQuery } from '../services/apis/authApi';
+
+const services = [
+  import.meta.env.VITE_IDENTITY_SERVICE_URL,
+  import.meta.env.VITE_ELECTION_SERVICE_URL,
+  import.meta.env.VITE_VOTE_SERVICE_URL,
+  import.meta.env.VITE_RESULTS_SERVICE_URL,
+  import.meta.env.VITE_FACE_ID_SERVICE_URL,
+  import.meta.env.VITE_NOTIFICATION_SERVICE_URL,
+];
+
+const triggerWarm = async (serviceUrl: string) => {
+  try {
+    await fetch(`${serviceUrl}/warmup`, {
+      method: 'GET',
+      headers: { 'x-internal': import.meta.env.VITE_WARMUP_SERVICE_KEY },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 interface HandleReduxQueryErrorProps {
   isError: boolean;
@@ -27,8 +46,6 @@ interface HandleReduxQuerySuccessProps {
   showErrorMessage?: boolean;
   showSuccessMessage?: boolean;
 }
-
-const { COLORS } = constants;
 
 export const useHandleReduxQueryError = ({
   error,
@@ -54,17 +71,27 @@ export const useHandleReduxQueryError = ({
     if (!(isError && error && 'status' in error)) return;
 
     if (error.status === 'FETCH_ERROR') {
-      showAlert({ msg: 'Server unreachable. Please try again later', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'Server unreachable. Please try again later', type: 'error' });
+      // Try warming up services
+      for (const serviceUrl of services) {
+        triggerWarm(serviceUrl);
+      }
     } else if (error.status === 'TIMEOUT_ERROR') {
-      showAlert({ msg: 'Check your internet connection and try again', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'Check your internet connection and try again', type: 'error' });
     } else if (error.status === 'PARSING_ERROR') {
-      showAlert({ msg: 'An error has occurred. Please try again', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'An error has occurred. Please try again', type: 'error' });
     } else if (error.data) {
       // we expect erroneous data response to be either a string or an object
       if (typeof error.data === 'object' && !Array.isArray(error.data)) {
-        const { message, errorCode } = error.data as BaseErrorResponse;
+        const { message, errorCode, meta } = error.data as BaseErrorResponse;
 
-        if (errorCode === 'E001') {
+        if (errorCode === 'E012') {
+          if (meta) {
+            // warm idle service up
+            const { originalService } = meta as any;
+            triggerWarm(originalService);
+          }
+        } else if (errorCode === 'E001') {
           // Session has expired: try refreshing the user's tokens
           const tokens = AppStorage.get<Tokens>(STORAGE_KEYS.AUTH, true);
           if (!tokens) {
@@ -82,13 +109,13 @@ export const useHandleReduxQueryError = ({
           dispatch(logout());
           navigate(AUTH.LOGIN);
         } else {
-          showAlert({ msg: message, bgColor: COLORS.ERROR });
+          showAlert({ msg: message, type: 'error' });
         }
       } else if (typeof error.data === 'string') {
-        showAlert({ msg: error.data, bgColor: COLORS.ERROR });
+        showAlert({ msg: error.data, type: 'error' });
       }
     } else {
-      showAlert({ msg: 'An error has occurred. Please try again', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'An error has occurred. Please try again', type: 'error' });
     }
     errorLog('Redux API error:', error);
     onError?.();
@@ -98,11 +125,11 @@ export const useHandleReduxQueryError = ({
     if (!(isRefreshError && refreshError && 'status' in refreshError)) return;
 
     if (refreshError.status === 'FETCH_ERROR') {
-      showAlert({ msg: 'Server unreachable. Please try again later', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'Server unreachable. Please try again later', type: 'error' });
     } else if (refreshError.status === 'TIMEOUT_ERROR') {
-      showAlert({ msg: 'Check your internet connection and try again', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'Check your internet connection and try again', type: 'error' });
     } else if (refreshError.status === 'PARSING_ERROR') {
-      showAlert({ msg: 'An error has occurred. Please try again', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'An error has occurred. Please try again', type: 'error' });
     } else if (refreshError.data) {
       // we expect erroneous data response to be either a string or an object
       if (typeof refreshError.data === 'object' && !Array.isArray(refreshError.data)) {
@@ -113,13 +140,13 @@ export const useHandleReduxQueryError = ({
           showAlert({ msg: 'Your session has expired. Please log in again' });
           dispatch(logout());
         } else {
-          showAlert({ msg: message, bgColor: COLORS.ERROR });
+          showAlert({ msg: message, type: 'error' });
         }
       } else if (typeof refreshError.data === 'string') {
-        showAlert({ msg: refreshError.data, bgColor: COLORS.ERROR });
+        showAlert({ msg: refreshError.data, type: 'error' });
       }
     } else {
-      showAlert({ msg: 'An error has occurred. Please try again', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'An error has occurred. Please try again', type: 'error' });
     }
     errorLog('Refresh error:', refreshError);
   }, [isRefreshError, refreshError]);
@@ -145,7 +172,7 @@ export const useHandleReduxQuerySuccess = ({
         showSuccessMessage && showAlert({ msg: response.message });
         onSuccess?.();
       } else {
-        showErrorMessage && showAlert({ msg: response.message, bgColor: COLORS.ERROR });
+        showErrorMessage && showAlert({ msg: response.message, type: 'error' });
         onFailure?.();
       }
     }

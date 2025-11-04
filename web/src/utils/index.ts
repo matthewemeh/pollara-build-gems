@@ -1,5 +1,7 @@
 import { nets } from 'face-api.js';
 
+import constants from '../constants';
+
 export const addClass = (element?: HTMLElement | null, ...classes: string[]) => {
   element?.classList.add(...classes);
 };
@@ -17,6 +19,7 @@ export const showAlert = ({
   bgColor,
   textColor,
   zIndex = '0',
+  type = 'info',
   duration = 3000,
 }: AlertProps) => {
   const alertDiv: HTMLDivElement = document.createElement('div');
@@ -38,7 +41,6 @@ export const showAlert = ({
     'max-w-[80vw]',
     'duration-500',
     'font-semibold',
-    'bg-primary-500',
     'transition-all',
     '-translate-x-1/2',
     'tracking-[0.04em]'
@@ -48,7 +50,9 @@ export const showAlert = ({
   document.body.appendChild(alertDiv);
 
   setTimeout(() => {
-    if (bgColor) alertDiv.style.background = bgColor;
+    const { COLORS } = constants;
+    alertDiv.style.background = bgColor ?? type === 'error' ? COLORS.ERROR : COLORS.PRIMARY[500];
+
     if (textColor) alertDiv.style.color = textColor;
     alertDiv.innerHTML = msg;
     alertDiv.style.bottom = '0px';

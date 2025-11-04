@@ -41,6 +41,8 @@ type MinifiedContestant = Omit<Contestant, 'party' | 'isDeleted' | 'createdAt' |
  * - `'E008'`: Indicates an invalid Vote Token was used to cast a vote.
  * - `'E009'`: Indicates an expired Vote Token was used to cast a vote.
  * - `'E010'`: Indicates a double (duplicate) vote attempt by a user.
+ * - `'E011'`: Indicates an attempt by the SUPER ADMIN to delete his/her account
+ * - `'E012'`: Indicates an idle server/service
  *
  * @remarks
  * Use this type to strongly type error codes and provide context-specific error handling.
@@ -55,4 +57,6 @@ type ErrorCode =
   | 'E007'
   | 'E008'
   | 'E009'
-  | 'E010';
+  | 'E010'
+  | 'E011'
+  | 'E012';

@@ -1,4 +1,5 @@
 interface BaseResponse {
+  meta?: object;
   message: string;
   success: boolean;
 }

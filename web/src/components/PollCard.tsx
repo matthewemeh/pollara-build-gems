@@ -21,7 +21,7 @@ import { updatePollSchema } from '../schemas/form.schema';
 import { useHandleReduxQueryError, useHandleReduxQuerySuccess } from '../hooks';
 import { useUpdatePollMutation, useDeletePollMutation } from '../services/apis/formApi';
 
-const { COLORS, SUPPORTED_FORMATS, SUPPORTED_MIME_TYPES, FILE_SIZE } = constants;
+const { SUPPORTED_FORMATS, SUPPORTED_MIME_TYPES, FILE_SIZE } = constants;
 
 const VisuallyHiddenInput = styled('input')({
   inset: 0,
@@ -91,7 +91,7 @@ const PollCard: React.FC<Props> = ({ poll, hasFormStarted, onPollUpdated, onPoll
     // Helper to reset and show error
     const resetImage = (msg?: string) => {
       setFieldValue(optionName, { file: null, preview: '' });
-      if (msg) showAlert({ msg, bgColor: COLORS.ERROR });
+      if (msg) showAlert({ msg, type: 'error' });
     };
 
     if (!file) return resetImage();
@@ -121,7 +121,7 @@ const PollCard: React.FC<Props> = ({ poll, hasFormStarted, onPollUpdated, onPoll
       onSubmit={async (values, { setSubmitting, resetForm }) => {
         const changedValues = getChangedFields(values, poll);
         if (isEmpty(changedValues)) {
-          showAlert({ msg: 'No changes made to update the poll.', bgColor: COLORS.ERROR });
+          showAlert({ msg: 'No changes made to update the poll.', type: 'error' });
           setSubmitting(false);
           return;
         }
@@ -131,11 +131,7 @@ const PollCard: React.FC<Props> = ({ poll, hasFormStarted, onPollUpdated, onPoll
         );
 
         if (poll.optionsImageEnabled && missingOptionImages) {
-          showAlert({
-            duration: 5000,
-            bgColor: COLORS.ERROR,
-            msg: 'Please upload images for all options',
-          });
+          showAlert({ type: 'error', duration: 5000, msg: 'Please upload images for all options' });
           return;
         }
 

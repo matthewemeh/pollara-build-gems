@@ -14,7 +14,7 @@ import { useAddPollMutation } from '../../services/apis/formApi';
 import { BackButton, FileUploadInput, Switch } from '../../components';
 import { useHandleReduxQueryError, useHandleReduxQuerySuccess } from '../../hooks';
 
-const { COLORS, SUPPORTED_FORMATS } = constants;
+const { SUPPORTED_FORMATS } = constants;
 
 const FormPopulate = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const FormPopulate = () => {
       // Helper to reset and show error
       const resetImage = (msg?: string) => {
         setFieldValue(optionName, { file: null, preview: '' });
-        if (msg) showAlert({ msg, bgColor: COLORS.ERROR });
+        if (msg) showAlert({ msg, type: 'error' });
       };
 
       if (!file) return resetImage('Please select an option image');
@@ -96,8 +96,8 @@ const FormPopulate = () => {
 
           if (values.optionsImageEnabled && values.options.some(option => !option.image?.file)) {
             showAlert({
+              type: 'error',
               duration: 5000,
-              bgColor: COLORS.ERROR,
               msg: 'Please upload images for all options or disable option images.',
             });
             return;

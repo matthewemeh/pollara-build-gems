@@ -4,6 +4,7 @@ interface AlertProps {
   bgColor?: string;
   duration?: number;
   textColor?: string;
+  type?: 'error' | 'info';
 }
 
 interface FormProps {

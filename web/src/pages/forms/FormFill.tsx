@@ -15,7 +15,6 @@ import {
   AssignmentTurnedIn,
 } from '@mui/icons-material';
 
-import constants from '../../constants';
 import { PATHS } from '../../routes/PathConstants';
 import { useLazyFetchFaceQuery } from '../../services/apis/faceApi';
 import { log, warn, error as errorLog } from '../../utils/log.utils';
@@ -33,7 +32,6 @@ import {
   TablePaginationActions,
 } from '../../components';
 
-const { COLORS } = constants;
 const FACE_VERIFICATION_THRESHOLD = Number(import.meta.env.VITE_FACE_VERIFICATION_THRESHOLD || 0.6);
 
 const FormFill = () => {
@@ -212,7 +210,7 @@ const FormFill = () => {
       (pollVotes.length < getPollsData.data.totalDocs ||
         pollVotes.some(({ optionIDs }) => isEmpty(optionIDs)))
     ) {
-      showAlert({ msg: 'Please fill form completely', bgColor: COLORS.ERROR });
+      showAlert({ msg: 'Please fill form completely', type: 'error' });
       return;
     }
 
