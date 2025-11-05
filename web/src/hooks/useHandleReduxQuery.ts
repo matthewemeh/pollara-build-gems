@@ -24,10 +24,16 @@ const triggerWarm = async (serviceUrl: string) => {
   try {
     await fetch(`${serviceUrl}/warmup`, {
       method: 'GET',
-      headers: { 'x-internal': import.meta.env.VITE_WARMUP_SERVICE_KEY },
+      headers: { 'x-api-key': import.meta.env.VITE_API_KEY },
     });
   } catch (err) {
     console.error(err);
+  }
+};
+
+const warmupServices = () => {
+  for (const serviceUrl of services) {
+    triggerWarm(serviceUrl);
   }
 };
 
@@ -72,14 +78,15 @@ export const useHandleReduxQueryError = ({
 
     if (error.status === 'FETCH_ERROR') {
       showAlert({ msg: 'Server unreachable. Please try again later', type: 'error' });
-      // Try warming up services
-      for (const serviceUrl of services) {
-        triggerWarm(serviceUrl);
-      }
+      // The target service could be down along with others, so warm up all services
+      warmupServices();
     } else if (error.status === 'TIMEOUT_ERROR') {
       showAlert({ msg: 'Check your internet connection and try again', type: 'error' });
     } else if (error.status === 'PARSING_ERROR') {
       showAlert({ msg: 'An error has occurred. Please try again', type: 'error' });
+      // At times, Render responds with a html object (not json, hence PARSING_ERROR)
+      // and a 502 response when service is down/idle, so handle accordingly
+      if (error.originalStatus === 502) warmupServices();
     } else if (error.data) {
       // we expect erroneous data response to be either a string or an object
       if (typeof error.data === 'object' && !Array.isArray(error.data)) {
