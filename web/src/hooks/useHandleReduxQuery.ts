@@ -84,9 +84,9 @@ export const useHandleReduxQueryError = ({
       showAlert({ msg: 'Check your internet connection and try again', type: 'error' });
     } else if (error.status === 'PARSING_ERROR') {
       showAlert({ msg: 'An error has occurred. Please try again', type: 'error' });
-      // At times, Render responds with a html object (not json, hence PARSING_ERROR)
-      // and a 502 response when service is down/idle, so handle accordingly
-      if (error.originalStatus === 502) warmupServices();
+      // At times, Render responds with a html object or plain text (not json, hence PARSING_ERROR)
+      // and a 429/502 response when service is down/idle, so handle accordingly
+      if ([429, 502].includes(error.originalStatus)) warmupServices();
     } else if (error.data) {
       // we expect erroneous data response to be either a string or an object
       if (typeof error.data === 'object' && !Array.isArray(error.data)) {
