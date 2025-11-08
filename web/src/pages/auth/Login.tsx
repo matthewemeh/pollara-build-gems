@@ -1,18 +1,8 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-  Button,
-  TextField,
-  IconButton,
-  InputLabel,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  FormHelperText,
-} from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
+import { PasswordInput } from '../../components';
 import { PATHS } from '../../routes/PathConstants';
 import { loginSchema } from '../../schemas/auth.schema';
 import { useLoginMutation } from '../../services/apis/authApi';
@@ -21,8 +11,6 @@ import { useHandleReduxQueryError, useHandleReduxQuerySuccess } from '../../hook
 const { REGISTER_USER, REGISTER_ADMIN, FORGOT_PASSWORD } = PATHS.AUTH;
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(show => !show);
   const [login, { error, isError, isLoading, isSuccess, data }] = useLoginMutation();
 
   useHandleReduxQueryError({ error, isError });
@@ -56,35 +44,18 @@ const Login = () => {
               className='form-field'
             />
 
-            <FormControl
-              variant='outlined'
-              className='form-field'
-              error={touched.password && !!errors.password}
-            >
-              <InputLabel htmlFor='password'>Password</InputLabel>
-              <OutlinedInput
-                id='password'
-                name='password'
-                label='Password'
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.password}
-                autoComplete='password'
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowPassword}
-                      aria-label={showPassword ? 'hide the password' : 'display the password'}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <FormHelperText error>{touched.password && errors.password}</FormHelperText>
-            </FormControl>
+            <PasswordInput
+              id='password'
+              name='password'
+              label='Password'
+              onBlur={handleBlur}
+              autoComplete='password'
+              error={errors.password}
+              onChange={handleChange}
+              value={values.password}
+              touched={touched.password}
+              containerClassName='form-field'
+            />
 
             <Link
               to={FORGOT_PASSWORD}

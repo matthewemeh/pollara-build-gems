@@ -178,6 +178,10 @@ input[type='checkbox'] {
   @apply w-full h-[calc(100dvh-100px)] flex flex-col items-center justify-center gap-5;
 }
 
+.form-section {
+  @apply mx-auto flex flex-col gap-4 pt-8 sm:max-w-md max-sm:px-6 max-sm:w-full;
+}
+
 /* ================ TABLE STYLING ================= */
 
 .avatar-image {

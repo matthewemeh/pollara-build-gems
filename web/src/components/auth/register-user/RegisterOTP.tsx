@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
-import OtpInput from '../../inputs/OtpInput';
+import { OtpInput } from '../../index';
 import { PATHS } from '../../../routes/PathConstants';
 import { secondsToMMSS, showAlert } from '../../../utils';
 import { updateUser } from '../../../services/apis/authApi/store';

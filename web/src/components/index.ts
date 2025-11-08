@@ -33,6 +33,7 @@ export { default as LinkIconButton } from './buttons/LinkIconButton';
 export { default as Switch } from './inputs/Switch';
 export { default as OtpInput } from './inputs/OtpInput';
 export { default as DatePicker } from './inputs/DatePicker';
+export { default as PasswordInput } from './inputs/PasswordInput';
 export { default as DropdownInput } from './inputs/DropdownInput';
 export { default as FormDatePicker } from './inputs/FormDatePicker';
 export { default as FileUploadInput } from './inputs/FileUploadInput';

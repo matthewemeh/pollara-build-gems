@@ -85,7 +85,7 @@ const PartyAdd = () => {
   });
 
   return (
-    <section className='mx-auto flex flex-col gap-4 pt-8 sm:max-w-md max-sm:px-6 max-sm:w-full'>
+    <section className='form-section'>
       <div className='form-header mb-6'>
         <BackButton onClick={goBack} />
         <p className='form-heading'>Add Party</p>

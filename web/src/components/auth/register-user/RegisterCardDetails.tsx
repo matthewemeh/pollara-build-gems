@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { useContext, useMemo } from 'react';
 import { Button, TextField } from '@mui/material';
 
+import { FormDatePicker } from '../../index';
 import { PATHS } from '../../../routes/PathConstants';
 import { RegisterContext } from '../../../pages/auth/register/RegisterUser';
 import { registerUserCardDetailsSchema } from '../../../schemas/auth.schema';
-import FormDatePicker from '../../inputs/FormDatePicker';
 
 const RegisterCardDetails = () => {
   const { LOGIN } = PATHS.AUTH;

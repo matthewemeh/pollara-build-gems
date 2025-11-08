@@ -1,21 +1,11 @@
 import { Formik } from 'formik';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import {
-  Button,
-  TextField,
-  IconButton,
-  InputLabel,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  FormHelperText,
-} from '@mui/material';
 
-import { BackButton } from '../../components';
 import { PATHS } from '../../routes/PathConstants';
 import { passwordSchema } from '../../schemas/auth.schema';
+import { BackButton, PasswordInput } from '../../components';
 import { useResetPasswordMutation } from '../../services/apis/authApi';
 import { updateUser, updateAuthStore } from '../../services/apis/authApi/store';
 import {
@@ -30,16 +20,12 @@ const { REGISTER_ADMIN, REGISTER_USER, LOGIN, FORGOT_PASSWORD } = PATHS.AUTH;
 const ResetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     resetToken,
     currentUser: { email },
   } = useAppSelector(state => state.authStore);
 
   const navigateForgotPassword = () => navigate(FORGOT_PASSWORD);
-  const handleClickShowPassword = () => setShowPassword(show => !show);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword(show => !show);
   const [resetPassword, { error, isError, isLoading, isSuccess, data }] =
     useResetPasswordMutation();
 
@@ -81,71 +67,31 @@ const ResetPassword = () => {
               autoComplete='username'
             />
 
-            <FormControl
-              required
-              variant='outlined'
-              className='form-field'
-              error={touched.password && !!errors.password}
-            >
-              <InputLabel htmlFor='password'>Password</InputLabel>
-              <OutlinedInput
-                id='password'
-                name='password'
-                label='Password'
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.password}
-                autoComplete='new-password'
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowPassword}
-                      aria-label={showPassword ? 'hide the password' : 'display the password'}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <FormHelperText error>{touched.password && errors.password}</FormHelperText>
-            </FormControl>
+            <PasswordInput
+              id='password'
+              name='password'
+              label='Password'
+              onBlur={handleBlur}
+              error={errors.password}
+              onChange={handleChange}
+              value={values.password}
+              touched={touched.password}
+              autoComplete='new-password'
+              containerClassName='form-field'
+            />
 
-            <FormControl
-              required
-              variant='outlined'
-              className='form-field'
-              error={touched.confirmPassword && !!errors.confirmPassword}
-            >
-              <InputLabel htmlFor='confirmPassword'>Confirm Password</InputLabel>
-              <OutlinedInput
-                id='confirmPassword'
-                name='confirmPassword'
-                label='Confirm Password'
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.confirmPassword}
-                autoComplete='new-password'
-                type={showConfirmPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowConfirmPassword}
-                      aria-label={
-                        showConfirmPassword ? 'hide the password' : 'display the password'
-                      }
-                    >
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <FormHelperText error>
-                {touched.confirmPassword && errors.confirmPassword}
-              </FormHelperText>
-            </FormControl>
+            <PasswordInput
+              id='confirmPassword'
+              name='confirmPassword'
+              label='Confirm Password'
+              onBlur={handleBlur}
+              error={errors.confirmPassword}
+              onChange={handleChange}
+              value={values.confirmPassword}
+              touched={touched.confirmPassword}
+              autoComplete='new-password'
+              containerClassName='form-field'
+            />
 
             <Button type='submit' variant='contained' loading={isLoading} className='!mt-3'>
               Reset

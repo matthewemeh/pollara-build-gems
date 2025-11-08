@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 
 import constants from '../../../constants';
+import { DropdownInput } from '../../index';
 import { PATHS } from '../../../routes/PathConstants';
-import DropdownInput from '../../inputs/DropdownInput';
-import { RegisterContext } from '../../../pages/auth/register/RegisterUser';
 import { registerUserDetailsSchema } from '../../../schemas/auth.schema';
+import { RegisterContext } from '../../../pages/auth/register/RegisterUser';
 
 const { GENDERS } = constants;
 
