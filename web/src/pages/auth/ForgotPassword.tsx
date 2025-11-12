@@ -1,5 +1,5 @@
-import { Formik } from 'formik';
 import { object, string } from 'yup';
+import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { Button, TextField } from '@mui/material';
@@ -69,7 +69,7 @@ const ForgotPassword = () => {
         }}
       >
         {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
-          <form className='form' onSubmit={handleSubmit}>
+          <Form className='form' onSubmit={handleSubmit}>
             <TextField
               required
               id='email'
@@ -96,7 +96,7 @@ const ForgotPassword = () => {
                 Login
               </Link>
             </p>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

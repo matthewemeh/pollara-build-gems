@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 
@@ -29,7 +29,7 @@ const Login = () => {
         initialValues={{ email: '', password: '' }}
       >
         {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
-          <form className='form' onSubmit={handleSubmit}>
+          <Form className='form' onSubmit={handleSubmit}>
             <TextField
               id='email'
               type='email'
@@ -80,7 +80,7 @@ const Login = () => {
                 </Link>
               </div>
             </div>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

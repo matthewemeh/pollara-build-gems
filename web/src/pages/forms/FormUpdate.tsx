@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { isEmpty, omitBy } from 'lodash';
 import { useContext, useEffect } from 'react';
 import { PostAdd } from '@mui/icons-material';
@@ -95,7 +95,7 @@ const FormUpdate = () => {
           isSubmitting,
           setFieldValue,
         }) => (
-          <form className='form -mt-4 !mb-5' onSubmit={handleSubmit}>
+          <Form className='form -mt-4 !mb-5' onSubmit={handleSubmit}>
             <TextField
               id='name'
               name='name'
@@ -171,7 +171,7 @@ const FormUpdate = () => {
             >
               Update Form
             </Button>
-          </form>
+          </Form>
         )}
       </Formik>
     </section>

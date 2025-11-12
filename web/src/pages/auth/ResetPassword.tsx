@@ -1,5 +1,5 @@
-import { Formik } from 'formik';
 import { useEffect } from 'react';
+import { Form, Formik } from 'formik';
 import { Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -58,7 +58,7 @@ const ResetPassword = () => {
         onSubmit={values => resetPassword({ resetToken, email, password: values.password })}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-          <form className='form' onSubmit={handleSubmit}>
+          <Form className='form' onSubmit={handleSubmit}>
             <TextField
               type='email'
               name='email'
@@ -108,7 +108,7 @@ const ResetPassword = () => {
                 </Link>
               </div>
             </div>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

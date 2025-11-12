@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -96,7 +96,7 @@ const VerifyOTP = () => {
         }}
       >
         {({ handleSubmit }) => (
-          <form className='form' onSubmit={handleSubmit}>
+          <Form className='form' onSubmit={handleSubmit}>
             <OtpInput otp={otp} setOtp={setOtp} numberOfDigits={OTP_LENGTH} />
 
             <Button type='submit' className='!mt-3' variant='contained' loading={isVerifyLoading}>
@@ -114,7 +114,7 @@ const VerifyOTP = () => {
                 Resend{timeToResend > 0 && ` in ${secondsToMMSS(timeToResend)}`}
               </button>
             </p>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

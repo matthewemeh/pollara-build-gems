@@ -1,5 +1,5 @@
-import { Formik } from 'formik';
 import { string, object } from 'yup';
+import { Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -86,7 +86,7 @@ const RegisterPassword = () => {
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-        <form className='form' onSubmit={handleSubmit}>
+        <Form className='form' onSubmit={handleSubmit}>
           <TextField
             type='email'
             name='email'
@@ -162,7 +162,7 @@ const RegisterPassword = () => {
           <Button type='submit' variant='contained' loading={isLoading} className='!mt-3'>
             Continue
           </Button>
-        </form>
+        </Form>
       )}
     </Formik>
   );

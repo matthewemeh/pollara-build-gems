@@ -1,5 +1,5 @@
-import { Formik } from 'formik';
 import { useContext } from 'react';
+import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 
@@ -25,7 +25,7 @@ const RegisterDetails = () => {
       }}
     >
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-        <form className='form' onSubmit={handleSubmit}>
+        <Form className='form' onSubmit={handleSubmit}>
           <TextField
             required
             type='text'
@@ -111,7 +111,7 @@ const RegisterDetails = () => {
               Login
             </Link>
           </p>
-        </form>
+        </Form>
       )}
     </Formik>
   );

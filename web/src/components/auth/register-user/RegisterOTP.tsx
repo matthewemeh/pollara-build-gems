@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -111,7 +111,7 @@ const RegisterOTP = () => {
       }}
     >
       {({ handleSubmit }) => (
-        <form className='form' onSubmit={handleSubmit}>
+        <Form className='form' onSubmit={handleSubmit}>
           <OtpInput otp={otp} setOtp={setOtp} numberOfDigits={OTP_LENGTH} />
 
           <Button type='submit' variant='contained' loading={isVerifyLoading} className='!mt-3'>
@@ -139,7 +139,7 @@ const RegisterOTP = () => {
           >
             Logout
           </button>
-        </form>
+        </Form>
       )}
     </Formik>
   );

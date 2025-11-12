@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { useContext, useMemo } from 'react';
 import { Button, TextField } from '@mui/material';
@@ -10,7 +10,6 @@ import { RegisterContext } from '../../../pages/auth/register/RegisterUser';
 import { registerUserCardDetailsSchema } from '../../../schemas/auth.schema';
 
 const RegisterCardDetails = () => {
-  const { LOGIN } = PATHS.AUTH;
   const todayDate = useMemo(() => new Date(), []);
   const { registerPayload, navigatePasswordSection } = useContext(RegisterContext)!;
 
@@ -34,7 +33,7 @@ const RegisterCardDetails = () => {
         isSubmitting,
         setFieldValue,
       }) => (
-        <form className='form' onSubmit={handleSubmit}>
+        <Form className='form' onSubmit={handleSubmit}>
           <TextField
             required
             autoFocus
@@ -107,11 +106,11 @@ const RegisterCardDetails = () => {
 
           <p className='text-center text-gull-gray font-medium text-base -tracking-[0.5%]'>
             Already have an account?&nbsp;
-            <Link to={LOGIN} className='text-primary-700'>
+            <Link to={PATHS.AUTH.LOGIN} className='text-primary-700'>
               Login
             </Link>
           </p>
-        </form>
+        </Form>
       )}
     </Formik>
   );
