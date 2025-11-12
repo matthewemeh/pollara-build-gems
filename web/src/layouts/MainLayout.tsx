@@ -52,11 +52,13 @@ const MainLayout = () => {
   }, [pathname, search, isAuthenticated]);
 
   return (
-    <div className='overflow-x-hidden min-h-screen px-4 sm:px-8'>
+    <div className='overflow-y-auto h-screen'>
       <Navbar />
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense>
+      <main className='pt-5 px-4 sm:px-8'>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+      </main>
     </div>
   );
 };

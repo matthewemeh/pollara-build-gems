@@ -326,6 +326,18 @@ body[data-theme='dark']
   @apply text-white;
 }
 
+body[data-theme='dark'] .MuiButton-outlined {
+  @apply text-primary-200 border-current;
+}
+
+body[data-theme='dark'] .MuiButton-outlined.Mui-disabled {
+  @apply text-granite-gray/50;
+}
+
+body[data-theme='dark'] .MuiButton-outlined .MuiSvgIcon-root path {
+  @apply text-current;
+}
+
 body[data-theme='dark'] .MuiSelect-select.Mui-disabled {
   -webkit-text-fill-color: unset;
 }

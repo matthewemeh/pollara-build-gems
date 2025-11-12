@@ -178,7 +178,7 @@ const Navbar = () => {
   useHandleReduxQuerySuccess({ isSuccess, response: data });
 
   return (
-    <nav className='bg-white -mx-4 px-4 h-16 mb-5 py-3 flex gap-5 items-center justify-between border-b sticky top-0 z-1200 sm:-mx-8 sm:px-8'>
+    <nav className='bg-white px-4 h-16 py-3 flex gap-5 items-center justify-between border-b border-[rgba(0,0,0,0.3)] shadow sticky top-0 z-1200 sm:px-8'>
       <IconButton onClick={toggleNav} aria-label='menu-hamburger' className='sm:!hidden'>
         {menuOpened ? <MenuOpenRounded /> : <MenuRounded />}
       </IconButton>
